@@ -7,16 +7,10 @@ LABEL maintainer="Leonardo Menezes"
 RUN apt-get clean
 RUN apt update
 
-# Process Control
-
-RUN apt install psmisc
-
 # AWS credentials bypass
 
 ENV AWS_ACCESS_KEY_ID "FAKEACCESSKEYID"
 ENV AWS_SECRET_ACCESS_KEY "FAKEACCESSKEY"
-
-ENV PORT 8003
 
 # Install java and set JAVA_HOME
 
@@ -34,26 +28,6 @@ RUN curl https://s3.sa-east-1.amazonaws.com/dynamodb-local-sao-paulo/dynamodb_lo
 RUN apt-get install unzip
 RUN unzip dynamo.zip -d .
 
-RUN java -D"java.library.path=.DynamoDBLocal_lib" -jar DynamoDBLocal.jar -port $PORT
-
-EXPOSE $PORT:$PORT
+EXPOSE 8000/tcp
 
 CMD ["bash"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
